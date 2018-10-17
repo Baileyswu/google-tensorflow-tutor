@@ -111,15 +111,15 @@ def preprocess_targets(california_housing_dataframe):
 # In[5]:
 
 
-training_examples = preprocess_features(california_housing_dataframe.head(12000))
-training_examples.describe()
+# training_examples = preprocess_features(california_housing_dataframe.head(12000))
+# training_examples.describe()
 
 
 # In[6]:
 
 
-training_targets = preprocess_targets(california_housing_dataframe.head(12000))
-training_targets.describe()
+# training_targets = preprocess_targets(california_housing_dataframe.head(12000))
+# training_targets.describe()
 
 
 #  对于**验证集**，我们从共 17000 个样本中选择后 5000 个样本。
@@ -127,15 +127,15 @@ training_targets.describe()
 # In[7]:
 
 
-validation_examples = preprocess_features(california_housing_dataframe.tail(5000))
-validation_examples.describe()
+# validation_examples = preprocess_features(california_housing_dataframe.tail(5000))
+# validation_examples.describe()
 
 
 # In[8]:
 
 
-validation_targets = preprocess_targets(california_housing_dataframe.tail(5000))
-validation_targets.describe()
+# validation_targets = preprocess_targets(california_housing_dataframe.tail(5000))
+# validation_targets.describe()
 
 
 #  ## 任务 1：检查数据
@@ -148,8 +148,8 @@ validation_targets.describe()
 # In[9]:
 
 
-training_examples = preprocess_features(california_housing_dataframe.head(12000))
-training_examples.describe()
+# training_examples = preprocess_features(california_housing_dataframe.head(12000))
+# training_examples.describe()
 
 
 #  ### 解决方案
@@ -213,14 +213,14 @@ def draw(training_examples, validation_examples):
 # In[11]:
 
 
-draw(training_examples, validation_examples)
+# draw(training_examples, validation_examples)
 
 
 # In[12]:
 
 
-c=validation_targets["median_house_value"] / validation_targets["median_house_value"].max()
-print(type(c))
+# c=validation_targets["median_house_value"] / validation_targets["median_house_value"].max()
+# print(type(c))
 
 
 #  稍等片刻…现在应该已经呈现出一幅不错的加利福尼亚州地图了，其中旧金山和洛杉矶等住房成本高昂的地区用红色表示。
@@ -257,20 +257,20 @@ print(type(c))
 # In[13]:
 
 
-california_housing_dataframe.head(12000)
+# california_housing_dataframe.head(12000)
 
 
 # In[14]:
 
 
-california_housing_dataframe = california_housing_dataframe.reindex(
+# california_housing_dataframe = california_housing_dataframe.reindex(
     np.random.permutation(california_housing_dataframe.index))
 
 
 # In[15]:
 
 
-california_housing_dataframe.head(12000)
+# california_housing_dataframe.head(12000)
 
 
 # 这样写是没用的。虽然 `reindex` 改变了 index，但数据没有根据新的 index 重新排列，head(12000)取的仍旧是原来的数据。
@@ -295,7 +295,7 @@ validation_targets = preprocess_targets(california_housing_dataframe.tail(5000))
 # In[18]:
 
 
-draw(training_examples, validation_examples)
+# draw(training_examples, validation_examples)
 
 
 #  ### 解决方案
