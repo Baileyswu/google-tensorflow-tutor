@@ -32,11 +32,31 @@ training_targets = preprocess_targets(california_housing_dataframe.head(12000))
 validation_examples = preprocess_features(california_housing_dataframe.tail(5000))
 validation_targets = preprocess_targets(california_housing_dataframe.tail(5000))
 
-linear_regressor = train_model(
-    learning_rate=0.00003,
+# linear_regressor = train_model(
+#     learning_rate=0.00003,
+#     steps=500,
+#     batch_size=5,
+#     training_examples=training_examples,
+#     training_targets=training_targets,
+#     validation_examples=validation_examples,
+#     validation_targets=validation_targets)
+
+minimal_features = [
+#     "latitude",
+    "median_income",
+#     "rooms_per_person"
+]
+
+assert minimal_features, "You must select at least one feature!"
+
+minimal_training_examples = training_examples[minimal_features]
+minimal_validation_examples = validation_examples[minimal_features]
+
+train_model(
+    learning_rate=0.001,
     steps=500,
     batch_size=5,
-    training_examples=training_examples,
+    training_examples=minimal_training_examples,
     training_targets=training_targets,
-    validation_examples=validation_examples,
+    validation_examples=minimal_validation_examples,
     validation_targets=validation_targets)
