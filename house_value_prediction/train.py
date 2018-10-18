@@ -101,7 +101,6 @@ def train_model(
     validation_predictions = linear_regressor.predict(input_fn=predict_validation_input_fn)
     validation_predictions = np.array([item['predictions'][0] for item in validation_predictions])
     
-    
     # Compute training and validation loss.
     training_root_mean_squared_error = math.sqrt(
         metrics.mean_squared_error(training_predictions, training_targets))
@@ -122,5 +121,6 @@ def train_model(
   plt.plot(training_rmse, label="training")
   plt.plot(validation_rmse, label="validation")
   plt.legend()
+  plt.show()
 
   return linear_regressor

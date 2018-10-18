@@ -32,6 +32,8 @@ training_targets = preprocess_targets(california_housing_dataframe.head(12000))
 validation_examples = preprocess_features(california_housing_dataframe.tail(5000))
 validation_targets = preprocess_targets(california_housing_dataframe.tail(5000))
 
+# train using validation
+
 # linear_regressor = train_model(
 #     learning_rate=0.00003,
 #     steps=500,
@@ -41,22 +43,40 @@ validation_targets = preprocess_targets(california_housing_dataframe.tail(5000))
 #     validation_examples=validation_examples,
 #     validation_targets=validation_targets)
 
-minimal_features = [
+# multiple features
+
+# minimal_features = [
 #     "latitude",
-    "median_income",
+#     "median_income",
 #     "rooms_per_person"
-]
+# ]
 
-assert minimal_features, "You must select at least one feature!"
+# assert minimal_features, "You must select at least one feature!"
 
-minimal_training_examples = training_examples[minimal_features]
-minimal_validation_examples = validation_examples[minimal_features]
+# minimal_training_examples = training_examples[minimal_features]
+# minimal_validation_examples = validation_examples[minimal_features]
 
-train_model(
-    learning_rate=0.001,
+# train_model(
+#     learning_rate=0.001,
+#     steps=500,
+#     batch_size=5,
+#     training_examples=minimal_training_examples,
+#     training_targets=training_targets,
+#     validation_examples=minimal_validation_examples,
+#     validation_targets=validation_targets)
+
+
+# after hive
+import hive
+from hive import select_and_transform_features
+selected_training_examples = select_and_transform_features(training_examples)
+selected_validation_examples = select_and_transform_features(validation_examples)
+
+_ = train_model(
+    learning_rate=0.01,
     steps=500,
     batch_size=5,
-    training_examples=minimal_training_examples,
+    training_examples=selected_training_examples,
     training_targets=training_targets,
-    validation_examples=minimal_validation_examples,
+    validation_examples=selected_validation_examples,
     validation_targets=validation_targets)

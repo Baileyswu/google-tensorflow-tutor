@@ -12,6 +12,7 @@ import pandas as pd
 from sklearn import metrics
 import tensorflow as tf
 
+
 def preprocess_features(california_housing_dataframe):
   """Prepares input features from California housing data set.
 
