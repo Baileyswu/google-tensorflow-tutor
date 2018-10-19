@@ -24,14 +24,13 @@ california_housing_dataframe = pd.read_csv("https://download.mlcc.google.cn/mled
 
 california_housing_dataframe = california_housing_dataframe.reindex(
     np.random.permutation(california_housing_dataframe.index))
-california_housing_dataframe = shuffle(california_housing_dataframe)
-california_housing_dataframe.head(12000)
 
 training_examples = preprocess_features(california_housing_dataframe.head(12000))
 training_targets = preprocess_targets(california_housing_dataframe.head(12000))
 validation_examples = preprocess_features(california_housing_dataframe.tail(5000))
 validation_targets = preprocess_targets(california_housing_dataframe.tail(5000))
 
+# -----------------------------------------------
 # train using validation
 
 # linear_regressor = train_model(
@@ -43,6 +42,7 @@ validation_targets = preprocess_targets(california_housing_dataframe.tail(5000))
 #     validation_examples=validation_examples,
 #     validation_targets=validation_targets)
 
+# -----------------------------------------------
 # multiple features
 
 # minimal_features = [
@@ -65,18 +65,34 @@ validation_targets = preprocess_targets(california_housing_dataframe.tail(5000))
 #     validation_examples=minimal_validation_examples,
 #     validation_targets=validation_targets)
 
+# -----------------------------------------------
+# one_hot
 
-# after hive
-import hive
-from hive import select_and_transform_features
-selected_training_examples = select_and_transform_features(training_examples)
-selected_validation_examples = select_and_transform_features(validation_examples)
+# import feature_combine
+# from feature_combine import select_and_transform_features
+# selected_training_examples = select_and_transform_features(training_examples)
+# selected_validation_examples = select_and_transform_features(validation_examples)
 
-_ = train_model(
-    learning_rate=0.01,
+# _ = train_model(
+#     learning_rate=0.01,
+#     steps=500,
+#     batch_size=5,
+#     training_examples=selected_training_examples,
+#     training_targets=training_targets,
+#     validation_examples=selected_validation_examples,
+#     validation_targets=validation_targets)
+
+
+# -----------------------------------------------
+# buckets
+import FTRL
+from FTRL import construct_feature_columns
+FTRL.train_model(
+    learning_rate=1.0,
     steps=500,
-    batch_size=5,
-    training_examples=selected_training_examples,
+    batch_size=100,
+    feature_columns=construct_feature_columns(training_examples),
+    training_examples=training_examples,
     training_targets=training_targets,
-    validation_examples=selected_validation_examples,
+    validation_examples=validation_examples,
     validation_targets=validation_targets)

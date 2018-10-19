@@ -1,7 +1,7 @@
 from matplotlib import cm
 from matplotlib import gridspec
 from matplotlib import pyplot as plt
-def draw(training_examples, validation_examples):
+def draw(training_examples, validation_examples, training_targets, validation_targets):
     plt.figure(figsize=(13, 8))
 
     ax = plt.subplot(1, 2, 1)
