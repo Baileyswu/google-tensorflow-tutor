@@ -52,6 +52,9 @@ def construct_feature_columns(training_examples):
   bucketized_rooms_per_person = tf.feature_column.bucketized_column(
     rooms_per_person, boundaries=get_quantile_based_boundaries(
       training_examples["rooms_per_person"], 10))
+      
+  long_x_lat = tf.feature_column.crossed_column(
+    set([bucketized_longitude, bucketized_latitude], 100))
   
   feature_columns = set([
     bucketized_longitude,
@@ -59,7 +62,8 @@ def construct_feature_columns(training_examples):
     bucketized_housing_median_age,
     bucketized_households,
     bucketized_median_income,
-    bucketized_rooms_per_person])
+    bucketized_rooms_per_person,
+    long_x_lat])
   
   return feature_columns
 
