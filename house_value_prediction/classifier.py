@@ -113,26 +113,24 @@ def train_linear_classifier_model(
   print("AUC on the validation set: %0.2f" % evaluation_metrics['auc'])
   print("Accuracy on the validation set: %0.2f" % evaluation_metrics['accuracy'])
   
-  plt.figure(figsize=(13,8))
   # Output a graph of loss metrics over periods.
-  ax = plt.subplot(1, 2, 1)
-  ax.ylabel("LogLoss")
-  ax.xlabel("Periods")
-  ax.title("LogLoss vs. Periods")
-  ax.tight_layout()
-  ax.plot(training_log_losses, label="training")
-  ax.plot(validation_log_losses, label="validation")
+  plt.ylabel("LogLoss")
+  plt.xlabel("Periods")
+  plt.title("LogLoss vs. Periods")
+  plt.tight_layout()
+  plt.plot(training_log_losses, label="training")
+  plt.plot(validation_log_losses, label="validation")
+  plt.legend(loc=1)
+  plt.show()
 
-  ax = plt.subplot(1, 2, 2)
   validation_probabilities = linear_classifier.predict(input_fn=predict_validation_input_fn)
   # Get just the probabilities for the positive class.
   validation_probabilities = np.array([item['probabilities'][1] for item in validation_probabilities])
 
   false_positive_rate, true_positive_rate, thresholds = metrics.roc_curve(
     validation_targets, validation_probabilities)
-  ax.plot(false_positive_rate, true_positive_rate, label="our model")
-  ax.plot([0, 1], [0, 1], label="random classifier")
-  
+  plt.plot(false_positive_rate, true_positive_rate, label="our model")
+  plt.plot([0, 1], [0, 1], label="random classifier")
+  plt.legend(loc=2)
   plt.show()
-
   return linear_classifier
