@@ -85,14 +85,34 @@ validation_targets = preprocess_targets(california_housing_dataframe.tail(5000))
 
 # -----------------------------------------------
 # buckets
-import FTRL
-from FTRL import construct_feature_columns
-FTRL.train_model(
-    learning_rate=1.0,
-    steps=500,
-    batch_size=100,
-    feature_columns=construct_feature_columns(training_examples),
+
+# import FTRL
+# from FTRL import construct_feature_columns
+# FTRL.train_model(
+#     learning_rate=1.0,
+#     steps=500,
+#     batch_size=100,
+#     feature_columns=construct_feature_columns(training_examples),
+#     training_examples=training_examples,
+#     training_targets=training_targets,
+#     validation_examples=validation_examples,
+#     validation_targets=validation_targets)
+
+# -----------------------------------------------
+# Logistic Regression
+# LinearRegressor -> LinearClassifier
+# L2 -> log_loss
+
+from preprocess import preprocess_binary_targets
+import classifier
+training_targets = preprocess_binary_targets(california_housing_dataframe.head(12000))
+validation_targets = preprocess_binary_targets(california_housing_dataframe.tail(5000))
+classifier.train_linear_classifier_model(
+  learning_rate=0.000001,
+    steps=200,
+    batch_size=20,
     training_examples=training_examples,
     training_targets=training_targets,
     validation_examples=validation_examples,
     validation_targets=validation_targets)
+
