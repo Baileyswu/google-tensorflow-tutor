@@ -14,3 +14,8 @@ def get_quantile_based_boundaries(feature_values, num_buckets):
   boundaries = np.arange(1.0, num_buckets) / num_buckets
   quantiles = feature_values.quantile(boundaries)
   return [quantiles[q] for q in quantiles.keys()]
+
+def get_quantile_based_buckets(feature_values, num_buckets):
+  quantiles = feature_values.quantile(
+    [(i+1.)/(num_buckets + 1.) for i in range(num_buckets)])
+  return [quantiles[q] for q in quantiles.keys()]

@@ -103,16 +103,37 @@ validation_targets = preprocess_targets(california_housing_dataframe.tail(5000))
 # LinearRegressor -> LinearClassifier
 # L2 -> log_loss
 
+# from preprocess import preprocess_binary_targets
+# import classifier
+# training_targets = preprocess_binary_targets(california_housing_dataframe.head(12000))
+# validation_targets = preprocess_binary_targets(california_housing_dataframe.tail(5000))
+# classifier.train_linear_classifier_model(
+#   learning_rate=0.000001,
+#     steps=200,
+#     batch_size=20,
+#     training_examples=training_examples,
+#     training_targets=training_targets,
+#     validation_examples=validation_examples,
+#     validation_targets=validation_targets)
+
+# -----------------------------------------------
+# l1 regularization
+
 from preprocess import preprocess_binary_targets
-import classifier
+import regularization
+from regularization import construct_feature_columns_with_too_many_buckets
+from model_size import model_size
 training_targets = preprocess_binary_targets(california_housing_dataframe.head(12000))
 validation_targets = preprocess_binary_targets(california_housing_dataframe.tail(5000))
-classifier.train_linear_classifier_model(
-  learning_rate=0.000001,
-    steps=200,
-    batch_size=20,
+linear_classifier = regularization.train_linear_classifier_model(
+    learning_rate=0.1,
+    # TWEAK THE REGULARIZATION VALUE BELOW
+    regularization_strength=0.8,
+    steps=300,
+    batch_size=100,
+    feature_columns=construct_feature_columns_with_too_many_buckets(training_examples),
     training_examples=training_examples,
     training_targets=training_targets,
     validation_examples=validation_examples,
     validation_targets=validation_targets)
-
+print("Model size:", model_size(linear_classifier))
