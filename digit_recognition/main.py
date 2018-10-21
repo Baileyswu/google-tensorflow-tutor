@@ -38,3 +38,12 @@ validation_targets, validation_examples = parse_labels_and_features(mnist_datafr
 # ax.set_title("Label: %i" % training_targets.loc[rand_example])
 # ax.grid(False)
 
+from train import train_linear_classification_model
+classifier = train_linear_classification_model(
+             learning_rate=0.02,
+             steps=100,
+             batch_size=10,
+             training_examples=training_examples,
+             training_targets=training_targets,
+             validation_examples=validation_examples,
+             validation_targets=validation_targets)
