@@ -119,21 +119,34 @@ validation_targets = preprocess_targets(california_housing_dataframe.tail(5000))
 # -----------------------------------------------
 # l1 regularization
 
-from preprocess import preprocess_binary_targets
-import regularization
-from regularization import construct_feature_columns_with_too_many_buckets
-from model_size import model_size
-training_targets = preprocess_binary_targets(california_housing_dataframe.head(12000))
-validation_targets = preprocess_binary_targets(california_housing_dataframe.tail(5000))
-linear_classifier = regularization.train_linear_classifier_model(
-    learning_rate=0.1,
-    # TWEAK THE REGULARIZATION VALUE BELOW
-    regularization_strength=0.8,
-    steps=300,
-    batch_size=100,
-    feature_columns=construct_feature_columns_with_too_many_buckets(training_examples),
+# from preprocess import preprocess_binary_targets
+# import regularization
+# from regularization import construct_feature_columns_with_too_many_buckets
+# from model_size import model_size
+# training_targets = preprocess_binary_targets(california_housing_dataframe.head(12000))
+# validation_targets = preprocess_binary_targets(california_housing_dataframe.tail(5000))
+# linear_classifier = regularization.train_linear_classifier_model(
+#     learning_rate=0.1,
+#     # TWEAK THE REGULARIZATION VALUE BELOW
+#     regularization_strength=0.8,
+#     steps=300,
+#     batch_size=100,
+#     feature_columns=construct_feature_columns_with_too_many_buckets(training_examples),
+#     training_examples=training_examples,
+#     training_targets=training_targets,
+#     validation_examples=validation_examples,
+#     validation_targets=validation_targets)
+# print("Model size:", model_size(linear_classifier))
+
+# -----------------------------------------------
+# Deep Neural Networks
+from deep_neural_networks import train_nn_regression_model
+dnn_regressor = train_nn_regression_model(
+    learning_rate=0.01,
+    steps=2000,
+    batch_size=80,
+    hidden_units=[10, 6, 2],
     training_examples=training_examples,
     training_targets=training_targets,
     validation_examples=validation_examples,
     validation_targets=validation_targets)
-print("Model size:", model_size(linear_classifier))
