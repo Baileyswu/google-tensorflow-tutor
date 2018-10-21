@@ -28,3 +28,6 @@ def draw(training_examples, validation_examples, training_targets, validation_ta
                 cmap="coolwarm",
                 c=training_targets["median_house_value"] / training_targets["median_house_value"].max())
     _ = plt.plot()
+
+
+# _ = training_examples.hist(bins=20, figsize=(18, 12), xlabelsize=2)

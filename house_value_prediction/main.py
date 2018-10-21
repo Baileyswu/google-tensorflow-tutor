@@ -140,13 +140,33 @@ validation_targets = preprocess_targets(california_housing_dataframe.tail(5000))
 
 # -----------------------------------------------
 # Deep Neural Networks
-from deep_neural_networks import train_nn_regression_model
-dnn_regressor = train_nn_regression_model(
-    learning_rate=0.01,
-    steps=2000,
-    batch_size=80,
-    hidden_units=[10, 6, 2],
-    training_examples=training_examples,
+# from deep_neural_networks import train_nn_regression_model
+# dnn_regressor = train_nn_regression_model(
+#     learning_rate=0.01,
+#     steps=2000,
+#     batch_size=80,
+#     hidden_units=[10, 6, 2],
+#     training_examples=training_examples,
+#     training_targets=training_targets,
+#     validation_examples=validation_examples,
+#     validation_targets=validation_targets)
+
+# -----------------------------------------------
+# normalize to [-1, 1]
+# log norm, clip, binary
+# Adam
+from normalize import normalize
+import optimizer
+normalized_dataframe = normalize(preprocess_features(california_housing_dataframe))
+normalized_training_examples = normalized_dataframe.head(12000)
+normalized_validation_examples = normalized_dataframe.tail(5000)
+
+_ = optimizer.train_nn_regression_model(
+    my_optimizer=tf.train.AdagradOptimizer(learning_rate=0.15),
+    steps=1000,
+    batch_size=50,
+    hidden_units=[10, 10],
+    training_examples=normalized_training_examples,
     training_targets=training_targets,
-    validation_examples=validation_examples,
+    validation_examples=normalized_validation_examples,
     validation_targets=validation_targets)
