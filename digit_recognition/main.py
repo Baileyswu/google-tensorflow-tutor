@@ -41,8 +41,8 @@ validation_targets, validation_examples = parse_labels_and_features(mnist_datafr
 from train import train_linear_classification_model
 classifier = train_linear_classification_model(
              learning_rate=0.02,
-             steps=100,
-             batch_size=10,
+             steps=1000,
+             batch_size=30,
              training_examples=training_examples,
              training_targets=training_targets,
              validation_examples=validation_examples,
